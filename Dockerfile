@@ -32,5 +32,5 @@ RUN mkdir -p /app/media
 # Expose port (Render will override this with $PORT)
 EXPOSE 8000
 
-# Start gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application"]
+# Start migrations and then gunicorn
+CMD python manage.py migrate && gunicorn --bind 0.0.0.0:8000 config.wsgi:application
